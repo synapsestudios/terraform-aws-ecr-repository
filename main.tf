@@ -37,6 +37,7 @@ EOF
 // Create aws ecr repository that allows a list of arns to push and pull from it
 data "aws_iam_policy_document" "this" {
   statement {
+    sid = "AllowPushPull"
     actions = [
       "ecr:BatchCheckLayerAvailability",
       "ecr:BatchGetImage",
