@@ -52,9 +52,6 @@ data "aws_iam_policy_document" "this" {
       type        = "AWS"
     }
     effect = "Allow"
-    resources = [
-      aws_ecr_repository.this.arn
-    ]
   }
 }
 
