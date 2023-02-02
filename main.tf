@@ -2,7 +2,7 @@ provider "aws" {
   region = var.region
 }
 
-resource "aws_ecr_repository" "ecr_repo" {
+resource "aws_ecr_repository" "this" {
   name                 = var.name
   image_tag_mutability = "MUTABLE"
 
@@ -11,8 +11,8 @@ resource "aws_ecr_repository" "ecr_repo" {
   }
 }
 
-resource "aws_ecr_lifecycle_policy" "ecr_lifecycle_policy" {
-  repository = aws_ecr_repository.ecr_repo.name
+resource "aws_ecr_lifecycle_policy" "this" {
+  repository = aws_ecr_repository.this.name
 
   policy = <<EOF
 {
@@ -35,8 +35,9 @@ EOF
 }
 
 // Create aws ecr repository that allows a list of arns to push and pull from it
-data "aws_iam_policy_document" "ecr_policy" {
+data "aws_iam_policy_document" "this" {
   statement {
+    sid = "AllowPushPull"
     actions = [
       "ecr:BatchCheckLayerAvailability",
       "ecr:BatchGetImage",
@@ -51,8 +52,10 @@ data "aws_iam_policy_document" "ecr_policy" {
       type        = "AWS"
     }
     effect = "Allow"
-    resources = [
-      aws_ecr_repository.ecr_repo.arn
-    ]
   }
+}
+
+resource "aws_ecr_repository_policy" "this" {
+  repository = aws_ecr_repository.this.name
+  policy     = data.aws_iam_policy_document.this.json
 }
