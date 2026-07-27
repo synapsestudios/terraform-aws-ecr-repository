@@ -1,0 +1,23 @@
+name: "Terraform Unit Tests"
+on:
+  workflow_call:
+
+jobs:
+  test:
+    name: "Terraform Unit Tests"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.13.4
+
+      - name: Terraform Init
+        run: terraform init -test-directory=tests/unit -backend=false
+
+      - name: Terraform Test
+        run: terraform test -test-directory=tests/unit

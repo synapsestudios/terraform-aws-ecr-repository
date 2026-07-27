@@ -12,6 +12,8 @@ permissions:
 jobs:
   terraform-format-test:
     uses: ./.github/workflows/terraform_format.yml
+  terraform-unit-tests:
+    uses: ./.github/workflows/terraform_test.yml
   terraform-docs:
     needs: [terraform-format-test]
     uses: ./.github/workflows/tf-docs.yml

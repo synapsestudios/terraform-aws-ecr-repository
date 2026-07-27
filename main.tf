@@ -2,14 +2,22 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = ">= 4.0"
+      version = ">= 6.8.0"
     }
   }
 }
 
 resource "aws_ecr_repository" "this" {
   name                 = var.name
-  image_tag_mutability = "MUTABLE"
+  image_tag_mutability = var.image_tag_mutability
+
+  dynamic "image_tag_mutability_exclusion_filter" {
+    for_each = var.image_tag_mutability_exclusion_filter
+    content {
+      filter      = image_tag_mutability_exclusion_filter.value.filter
+      filter_type = image_tag_mutability_exclusion_filter.value.filter_type
+    }
+  }
 
   image_scanning_configuration {
     scan_on_push = true
