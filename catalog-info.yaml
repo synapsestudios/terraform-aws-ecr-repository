@@ -1,0 +1,8 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: terraform-aws-ecr-repository
+spec:
+  type: library
+  lifecycle: production
+  owner: platform
