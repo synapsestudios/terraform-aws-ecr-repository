@@ -27,24 +27,22 @@ resource "aws_ecr_repository" "this" {
 resource "aws_ecr_lifecycle_policy" "this" {
   repository = aws_ecr_repository.this.name
 
-  policy = <<EOF
-{
-    "rules": [
-        {
-            "rulePriority": 1,
-            "description": "only keep 30 builds",
-            "selection": {
-                "tagStatus": "any",
-                "countType": "imageCountMoreThan",
-                "countNumber": 30
-            },
-            "action": {
-                "type": "expire"
-            }
+  policy = jsonencode({
+    rules = [
+      {
+        rulePriority = 1
+        description  = "only keep ${var.image_retention_count} builds"
+        selection = {
+          tagStatus   = "any"
+          countType   = "imageCountMoreThan"
+          countNumber = var.image_retention_count
         }
+        action = {
+          type = "expire"
+        }
+      }
     ]
-}
-EOF
+  })
 }
 
 // Create aws ecr repository that allows a list of arns to push and pull from it
