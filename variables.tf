@@ -23,3 +23,13 @@ variable "image_tag_mutability_exclusion_filter" {
   default     = []
 }
 
+variable "image_retention_count" {
+  type        = number
+  description = "Number of most recent images the lifecycle policy keeps. Older images expire."
+  default     = 30
+
+  validation {
+    condition     = var.image_retention_count >= 1
+    error_message = "image_retention_count must be at least 1."
+  }
+}

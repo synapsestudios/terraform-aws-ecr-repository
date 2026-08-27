@@ -37,6 +37,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_allowed_arns"></a> [allowed\_arns](#input\_allowed\_arns) | The list of IAM user arns that are allowed to push and pull to and from the repository | `list(string)` | n/a | yes |
+| <a name="input_image_retention_count"></a> [image\_retention\_count](#input\_image\_retention\_count) | Number of most recent images the lifecycle policy keeps. Older images expire. | `number` | `30` | no |
 | <a name="input_image_tag_mutability"></a> [image\_tag\_mutability](#input\_image\_tag\_mutability) | The tag mutability setting for the repository. One of MUTABLE, IMMUTABLE, IMMUTABLE\_WITH\_EXCLUSION, or MUTABLE\_WITH\_EXCLUSION. | `string` | `"MUTABLE"` | no |
 | <a name="input_image_tag_mutability_exclusion_filter"></a> [image\_tag\_mutability\_exclusion\_filter](#input\_image\_tag\_mutability\_exclusion\_filter) | Tags excluded from the mutability setting. Only applies when image\_tag\_mutability is IMMUTABLE\_WITH\_EXCLUSION or MUTABLE\_WITH\_EXCLUSION. | <pre>list(object({<br/>    filter      = string<br/>    filter_type = optional(string, "WILDCARD")<br/>  }))</pre> | `[]` | no |
 | <a name="input_name"></a> [name](#input\_name) | The name of the image repository that we are going to create | `string` | n/a | yes |
