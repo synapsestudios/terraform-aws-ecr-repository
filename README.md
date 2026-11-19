@@ -11,6 +11,7 @@ https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/US_SetupSNS.html
 
 | Name | Version |
 |------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.8.0 |
 
 ## Providers
